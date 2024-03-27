@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h3>Contact Me here!!</h3>
+    <!--action attribute is used to specify the location where the form data has to be sent.-->
+    <!-- post method attribute tells the nature of the action that data has to be sent/delievered and not recived. -->
+    <!--name attribute will help specify values in the post method.-->       
+    <!--Values of the tag only appears in the post method if it as name attribute.-->
+    <!--enctype attribute is in encryting the data as required, here it is in plain text. -->
+    <form action="mailto:shobhitjnn16@gmail.com" method="post" enctype="text/plain">
+        <label for="name">Your Name:</label>
+        <input type="text" id = "name" name="yourName"><br> 
+        <label for="email">Your Email:</label>
+        <input type="email" id= "email" name="youeEmail"><br>
+        <label for="message">Your Message</label><br>
+        <textarea name="yourMessage" id="msg" cols="30" rows="10"></textarea><br>
+        <input type="submit">
+    </form>
+    <hr>
+</body>
+</html>

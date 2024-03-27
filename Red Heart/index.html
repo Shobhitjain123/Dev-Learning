@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart</title>
+    <style>
+        .heart{
+            height: 200px;
+            width: 200px;
+            background-color: red;
+            position: relative;
+            top: 200px;
+            left: 450px;
+            transform: rotate(45deg);
+            /* transition: transform 1s ease; */
+            animation: 10s ease 0s 1 rotateHeart;
+        }
+
+        @keyframes rotateHeart {
+            50%{
+                transform: rotate(225deg);
+               
+            }
+            100%{
+                transform: rotate(405deg);
+            
+            }
+        }
+
+        /* .heart:hover{
+            transform: rotate(405deg);
+        } */
+
+        .circle1{
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            background-color: red;
+            position: absolute;
+            transform: translateX(-100px);
+
+        }
+
+        .circle2{
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            background-color: red;
+            position: absolute;
+            transform: translateY(-100px);
+        }
+
+        /* .heart:hover{
+            transform: rotate(405deg);
+        } */
+
+    </style>
+</head>
+<body>
+    <div class="heart">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+    </div>
+</body>
+</html>

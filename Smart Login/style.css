@@ -1,0 +1,37 @@
+.form-container{
+    height: 70vh;
+    width: 500px;
+    background-color: transparent;
+    margin: 125px auto;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 10%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+form{
+    height: 100%;
+    width: 100%;
+}
+h2{
+    font-size: 80px;
+    position: relative;
+    top: 10px;
+}
+
+.input{
+    display: grid;
+    grid-template-rows: 1rt 1rt;
+    margin: 10px;
+    font-size: 40px;
+    width: 50%;
+    margin: 0 auto;
+}
+
+input{
+    height: 30px;
+    width: 100%;
+    margin: 10px;
+}
