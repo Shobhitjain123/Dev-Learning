@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Dog Market</title>
+</head>
+<body>
+    <form action="/" method="post" class="breedInput">
+        <label for="breed">Input Your breed</label>
+        <input type="text" name="breed">
+        <input type="submit" value="Submit">
+    </form>
+    <div class="dog">
+        <% for(let i=0; i<dogImage.length; i++){ %>
+            <img src= <%= dogImage[i] %> alt="" height="300px" width="300px">
+        <%  }%>
+    </div>
+</body>
+</html>
