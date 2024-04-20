@@ -17,7 +17,13 @@ app.get("/jokes/:id", (req,res) => {
   console.log(typeof req.params.id);
   const id = parseInt(req.params.id);
   const foundJokes = jokes.find((joke) =>  joke.id === id);
-  res.json(foundJokes);
+  const jokeIndex = jokes.findIndex(joke => joke.id === id);
+  if(jokeIndex >= 0 && jokeIndex < jokes.length){
+    res.status(200).json(foundJokes);
+  }else{
+    res.status(404).json({message: `The Joke with id ${id} does not exist`})
+  }
+  
 })
 
 //3. GET a jokes by filtering on the joke type
@@ -29,15 +35,73 @@ app.get("/filter", (req,res) => {
   res.json(foundJoke);
 })
 //4. POST a new joke
+app.post("/jokes", (req,res) => {
+  const text = req.body.text;
+  const type = req.body.type;
+  const id = jokes.length + 1;
+  console.log(type);
+  console.log(text);
+  console.log(id);
+  jokes.push({"id": id, "jokeText": text, "jokeType": type});
+  const config = {
+    message: "Joke has been added successfully"
+  };
+  console.log(config);
+  res.json(config);
 
+})
 //5. PUT a joke
+app.put("/jokes/:id", (req,res) => {
+  const text = req.query.text;
+  const type = req.query.type;
+  const id = parseInt(req.params.id);
+  const pos = jokes.map(val => val.id).indexOf(id);
 
+  jokes[pos].jokeType = type;
+  jokes[pos].jokeText = text;
+  console.log(jokes[pos]);
+  res.json(jokes[pos]);
+  
+})
 //6. PATCH a joke
+app.patch("/jokes/:id", (req,res) => {
+  const id = parseInt(req.params.id);
+  const existingJoke = jokes.find(joke => joke.id === id);
+  const replacementJoke = {
+    id: id,
+    jokeText: req.body.text || existingJoke.jokeText,
+    jokeType: req.body.type || existingJoke.jokeType
+  }
+  const jokeIndex = jokes.findIndex(index => index.id === id)
+  console.log(jokes[jokeIndex]);
+  res.json(replacementJoke);
 
+})
 //7. DELETE Specific joke
+app.delete("/jokes/:id", (req,res) => {
+  const id = parseInt(req.params.id);
+  const jokeIndex = jokes.findIndex(joke => joke.id === id)
 
+  if(jokeIndex > -1){
+    jokes.splice(jokeIndex, 1)
+    res.status(200).json({message: "OK Deleted"})
+  }else{
+    res.status(404).json({message: `There is no id ${id} found, No joke deleted`});
+  }
+
+  res.json({message: "OK"});
+})
 //8. DELETE All jokes
+app.delete("/all", (req,res) => {
+  const userKey = req.query.key;
 
+  if(userKey == masterKey){
+    jokes = [];
+    res.status(200).json({message: "All jokes deleted"})
+  }else{
+    res.status(401).json({message:"You are Unauthoried to access this request"});
+  }
+})
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
 });
