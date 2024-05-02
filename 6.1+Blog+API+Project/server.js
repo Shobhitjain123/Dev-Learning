@@ -58,8 +58,8 @@ app.post("/api/posts/:id", async (req, res) => {
   try {
     const response = await axios.patch(
       `${API_URL}/posts/${req.params.id}`,
-      req.body
-    );
+      req.body  
+    );  
     console.log(response.data);
     res.redirect("/");
   } catch (error) {

@@ -3,6 +3,18 @@ import bodyParser from "body-parser";
 
 const app = express();
 const port = 4000;
+const currentDate = new Date();
+
+// Extract date components
+const year = currentDate.getUTCFullYear();
+const month = String(currentDate.getUTCMonth() + 1).padStart(2, '0'); // Month is zero-indexed
+const day = String(currentDate.getUTCDate()).padStart(2, '0');
+const hours = String(currentDate.getUTCHours()).padStart(2, '0');
+const minutes = String(currentDate.getUTCMinutes()).padStart(2, '0');
+const seconds = String(currentDate.getUTCSeconds()).padStart(2, '0');
+
+// Construct the formatted date string
+const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`
 
 // In-memory data store
 let posts = [
@@ -32,8 +44,6 @@ let posts = [
   },
 ];
 
-let lastId = 3;
-
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,15 +51,51 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Write your code here//
 
 //CHALLENGE 1: GET All posts
-
+app.get("/posts", (req,res) => {
+  res.json(posts);
+})
 //CHALLENGE 2: GET a specific post by id
-
+app.get("/posts/:id", (req,res) => {
+  const post = posts.find(post => post.id == parseInt(req.params.id))
+  if(!post) return res.status(404).json({message: "Post not found"})
+  res.json(post);
+})
 //CHALLENGE 3: POST a new post
-
+app.post("/posts", (req,res) => {
+  console.log(req.body);
+  console.log(typeof req.body);
+  const newPosts = {
+    id: posts.length +1,
+    title: req.body.title,
+    content: req.body.content,
+    author: req.body.author,
+    date: formattedDate
+  }
+  console.log(newPosts);
+  posts.push(newPosts);
+  res.json(posts);
+})
 //CHALLENGE 4: PATCH a post when you just want to update one parameter
+app.patch("/posts/:id", (req,res) => {
+  console.log(req.body);
+  const updatePostIndex = posts.findIndex(post => post.id === parseInt(req.params.id));
+  console.log(updatePostIndex);
 
+  posts[updatePostIndex].title = req.body.title;
+  posts[updatePostIndex].content = req.body.content;
+  posts[updatePostIndex].author = req.body.author;
+
+  res.json(posts);
+
+})
 //CHALLENGE 5: DELETE a specific post by providing the post id.
-
+app.delete("/posts/:id", (req,res) =>{
+  const deletePostIndex = posts.findIndex(post => post.id === parseInt(req.params.id));
+  console.log(posts[deletePostIndex]);
+  posts.splice(deletePostIndex, 1);
+  console.log(posts);
+  res.json(posts);
+})
 app.listen(port, () => {
   console.log(`API is running at http://localhost:${port}`);
 });
